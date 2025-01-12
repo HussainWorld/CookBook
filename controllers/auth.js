@@ -1,87 +1,98 @@
-/* eslint-disable prefer-destructuring */
-const express = require('express');
-const User = require('../models/user');
-const auth = require('../config/auth');
-
+const express = require("express");
 const router = express.Router();
+const User = require("../models/user.js");
+const bcrypt = require("bcrypt");
 
-// Sign up
-router.get('/sign-up', async (req, res) => {
+
+router.get('/sign-up', (req, res) => {
   res.render('auth/sign-up.ejs');
 });
 
-router.post('/sign-up', async (req, res) => {
-  // grab the values from the req body
+router.get("/sign-in", (req, res) => {
+  res.render("auth/sign-in.ejs");
+});
+
+router.post("/sign-in", async (req, res) => {
+  const password = req.body.password;
   const username = req.body.username;
+
+    //see if the user already exists in the database
+    const userInDatabase = await User.findOne({ username });
+    if (!userInDatabase) {
+      return res.send("Login failed. Please try again.");
+    }
+
+    const validPassword = bcrypt.compareSync(
+      req.body.password,
+      userInDatabase.password
+    );
+    if (!validPassword) {
+      return res.send("Login failed. Please try again.");
+    }
+    
+    req.session.user = {
+      username: userInDatabase.username,
+      _id: userInDatabase._id,
+    };
+
+    res.redirect("/");
+
+});
+
+// Sign-out route
+router.get("/sign-out", (req, res) => {
+  try {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error during session destruction:", err);
+        return res.status(500).send("Unable to sign out. Please try again.");
+      }
+      // Redirect to the login page after signing out
+      res.redirect("/login");
+    });
+  } catch (error) {
+    console.error("Error in signout:", error);
+    res.status(500).send("Signout failed.");
+  }
+});
+
+router.post("/sign-up", async (req, res) => {
   const password = req.body.password;
   const confirmPassword = req.body.confirmPassword;
-  // Check if the user already exists
-  const existingUser = await User.findOne({ username });
-
-  // if the user exists,then dont bother doing anything, just send a message to the browser
-  if (existingUser) {
-    return res.send('Username is taken');
-  }
-  // verify that the password matches
-  if (password !== confirmPassword) {
-    return res.send("Passwords don't match!");
-  }
-
-  // create the user in the database
-  // -b make the password secure
-  const hashPassword = auth.encryptPassword(password);
-  const payload = { username, password: hashPassword };
-
-  const newUser = await User.create(payload);
-  // sign person in and redirect to home page
-  req.session.user = {
-    username: newUser.username,
-    _id: newUser._id,
-  };
-
-  req.session.save(() => {
-    res.redirect('/');
-  });
-});
-
-// Sign in
-router.get('/sign-in', async (req, res) => {
-  res.render('auth/sign-in.ejs');
-});
-
-router.post('/sign-in', async (req, res) => {
   const username = req.body.username;
-  const password = req.body.password;
-  // find a user from the username they filled out
-  const user = await User.findOne({ username });
-  // if the user doesnt exist, send an error msg
-  if (!user) {
-    return res.send('Login failed, please try again');
+
+  //Check if the password and confirm password match
+  if (password !== confirmPassword) {
+    return res.send("Passwords do not match.");
   }
 
-  // compare the password they submitted with the password in the db
-  const validPassword = auth.comparePassword(password, user.password);
-  // if the password is no good, then send an error
-  if (!validPassword) {
-    return res.send('Login failed, please try again');
+  //see if the user already exists in the database
+  const userInDatabase = await User.findOne({ username });
+
+  if (userInDatabase) {
+    return res.send("Username or Password is invalid.");
   }
-  // else sign them in
-  // create a session cookie
-  req.session.user = {
-    username: user.username,
-    _id: user._id,
-  };
 
-  req.session.save(() => {
-    res.redirect('/');
-  });
+
+  
+  //Create a new registration
+
+
+  // 1) encrypt the password
+  const hashedPassword = bcrypt.hashSync(password, 10);
+
+  // 2) replace the raw password with the encrypted password
+  req.body.password = hashedPassword;
+
+
+  // 3) save the user to the database
+  const newUser = await User.create(req.body);
+
+  // validation logic
+  // res.send(newUser.username);
+  res.redirect("/");
+
 });
 
-// Sign out
-router.get('/sign-out', async (req, res) => {
-  req.session.destroy(() => {
-    res.redirect('/');
-  });
-});
 
 module.exports = router;

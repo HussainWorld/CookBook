@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Recipes</title>
+</head>
+<body>
+  <%- include('../partials/_navbar.ejs') %>
+  <h1>All Recipes</h1>
+  <ul>
+    <% recipesArray.forEach(recipe => { %>
+      <li>
+        <strong><%= recipe.title %></strong> - <%= recipe.category %><br>
+        <a href="/users/<%= user._id %>/recipes/<%= recipe._id %>">View Details</a>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>

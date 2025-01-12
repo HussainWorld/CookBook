@@ -1,0 +1,19 @@
+<!-- views/partials/_navbar.ejs -->
+
+<nav>
+  <% if(user) { %>
+    <a href="/users/<%= user._id %>/recipes">Your Apps</a>
+    <a href="">Home</a>
+    <a href="/users/<%= user._id %>/recipes/allRecipes">All Recipes</a>
+    <a href="/users/<%= user._id %>/recipes/myRecipes">My Recipes</a>
+    <a href="">Members</a>
+    <a href="/users/<%=user._id%>/Recipes/new">Submit a Recipe</a>
+    <a href="/auth/sign-out">Logout <b><%= user.username %></b></a>
+  <% } else { %>
+  <a href="">Home</a>
+  <a href="">All Recipes</a>
+  <a href="">Members</a>
+  <a href="/auth/sign-in">Login</a>
+  <a href="/auth/sign-up">Register</a>
+  <% } %>
+</nav>

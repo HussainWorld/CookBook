@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= recipe.title %></title>
+</head>
+<body>
+  <%- include('../partials/_navbar.ejs') %>
+  <h1><%= recipe.title %></h1>
+  <p><strong>Category:</strong> <%= recipe.category %></p>
+  <p><strong>Ingredients:</strong> <%= recipe.ingredient %></p>
+  <p><strong>Instructions:</strong> <%= recipe.instructions %></p>
+  <img src="<%= recipe.iamgeUrl %>" alt="<%= recipe.title %>">
+  
+  <br>
+    
+    <a href="/users/<%= user._id %>/recipes/<%= recipe._id %>/edit">
+      Edit this Recipe
+    </a>
+
+    <form
+      action="/users/<%= user._id %>/recipes/<%= recipe._id %>?_method=DELETE"
+      method="POST"
+    >
+      <button type="submit">Delete this recipe</button>
+    </form>
+</body>
+</html>

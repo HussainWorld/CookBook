@@ -1,0 +1,52 @@
+<!-- views/applications/new.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add a New Recipe</title>
+  </head>
+  <body>
+    <%- include('../partials/_navbar.ejs') %>
+    <h1>Add a New Recipe</h1>
+
+  <form action="/users/<%= user._id %>/recipes" method="POST">
+       <!-- Title -->
+       <label for="title">Recipe Title:</label>
+       <input type="text" id="title" name="title" required />
+       <br />
+
+        <!-- Ingredients -->
+      <label for="ingredient">Ingredients:</label>
+      <textarea id="ingredient" name="ingredient" rows="4" cols="50"></textarea>
+      <br>
+
+       <!-- Instructions -->
+       <label for="instructions">Instructions:</label>
+       <textarea id="instructions" name="instructions" rows="4" cols="50"></textarea>
+       <br />
+ 
+       <!-- Category -->
+       <label for="category">Category:</label>
+       <select id="category" name="category" required>
+         <option value="">--Select Category--</option>
+         <option value="BreakFast">Breakfast</option>
+         <option value="Lunch">Lunch</option>
+         <option value="Dinner">Dinner</option>
+         <option value="Snack">Snack</option>
+         <option value="Desserts">Desserts</option>
+       </select>
+       <br />
+ 
+       <!-- Image URL -->
+       <label for="iamgeUrl">Image URL:</label>
+       <input type="file" id="iamgeUrl" name="iamgeUrl" />
+       <br />
+ 
+       <!-- Submit Button -->
+       <button type="submit">Submit Recipe</button>
+  </form>
+
+  </body>
+</html>
