@@ -310,3 +310,8 @@ footer {
   font-size: 12px;
 }
 
+.view-recipe-button {
+text-decoration: none; 
+color: rgb(0, 0, 0); 
+}
+

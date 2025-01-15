@@ -1,12 +1,12 @@
 /* Center the main content */
 main {
-  display: flex; /* Enables flexbox */
-  justify-content: center; /* Centers content horizontally */
-  align-items: center; /* Centers content vertically */
-  flex-direction: column; /* Stacks elements vertically */
-  min-height: 100vh; /* Ensures it takes the full viewport height */
-  margin: 0; /* Removes default margin */
-  background-color: whitesmoke; /* Matches the body background */
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0; 
+  background-color: whitesmoke; 
 }
 
 
@@ -49,7 +49,6 @@ textarea {
   resize: vertical;
 }
 
-/* Select Dropdown */
 select {
   background-color: #fff;
 }

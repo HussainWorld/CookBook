@@ -22,56 +22,11 @@ router.get('/', async (req, res) => {
   }
 });
 
-
-// router.get("/:recipeId", async (req, res) => {
-//   try {
-//     const recipe = await Recipe.findById(req.params.recipeId);
-//     if (!recipe) {
-//       return res.status(404).send("Recipe not found");
-//     }
-//     res.render("recipes/show", { recipe });
-//   } catch (error) {
-//     console.error("Error fetching recipe:", error);
-//     res.status(500).send("Error retrieving recipe details.");
-//   }
-// });
-
-
-// // Route to display all recipes
-// router.get("/allRecipes", async (req, res) => {
-//   try {
-//     const users = await User.find({});
-//     let userRecipes = [];
-
-//     users.forEach(user => {
-//       // console.log(user._id)
-
-//       const oneUserIdAndRecipes = {
-//         userId: user._id,
-//         recipes: user.recipes
-//       }
-//       userRecipes.push(oneUserIdAndRecipes)
-
-//     });
-//     console.log('recipes')
-//     console.log( "recipes array",userRecipes[0].recipes[0])
-    
-//     res.render("recipes/allRecipes.ejs", {
-//       user: req.session.user,
-//       userRecipes
-//     });
-//   } catch (error) {
-//     console.error("Error retrieving recipes:", error);
-//     res.status(500).send("Error retrieving recipes.");
-//   }
-// });
-
 router.get('/myRecipes', async (req, res) => {
   try {
     // Look up the user from req.session
     const currentUser = await User.findById(req.session.user._id);
     const recipes = currentUser.recipes 
-    console.log('hi----------------------------------------------------')
     // Render index.ejs, passing in all of the current user's
     // applications as data in the context object.
     res.render('recipes/myRecipes.ejs', {
@@ -89,35 +44,6 @@ router.get('/new', async (req, res) => {
   res.render('recipes/new.ejs');
 });
 
-
-// router.get('/:recipesId', async (req, res) => {
-//   try {
-//     console.log('Route params:', req.params);
-
-//     // Look up the user from req.params.userId
-//     const user = await User.findById(req.params.userId);
-//     if (!user) {
-//       console.error('User not found');
-//       return res.status(404).send('User not found');
-//     }
-
-//     // Find the recipe by recipesId
-//     const recipe = user.recipes.id(req.params.recipesId);
-//     if (!recipe) {
-//       console.error('Recipe not found');
-//       return res.status(404).send('Recipe not found');
-//     }
-
-//     // Render the show view
-//     res.render('recipes/show.ejs', {
-//       user: req.session.user,
-//       recipe: recipe,
-//     });
-//   } catch (error) {
-//     console.error('Error occurred:', error);
-//     res.redirect('/');
-//   }
-// });
 
 router.get('/:recipesId', async (req, res) => {
   try {
@@ -137,25 +63,6 @@ router.get('/:recipesId', async (req, res) => {
   }
 });
 
-
-//new.ejs
-// router.post('/', async (req, res) => {
-//   try {
-//     // Look up the user from req.session
-//     const currentUser = await User.findById(req.session.user._id);
-//     // Push req.body (the new form data object) to the
-//     // recipes array of the current user
-//     currentUser.recipes.push(req.body);
-//     // Save changes to the user
-//     await currentUser.save();
-//     // Redirect back to the applications index view
-//     res.redirect(`/users/${currentUser._id}/recipes`);
-//   } catch (error) {
-//     // If any errors, log them and redirect back home
-//     console.log(error);
-//     res.redirect('/');
-//   }
-// });
 router.post('/', async (req, res) => {
   try {
     // Look up the user from req.session

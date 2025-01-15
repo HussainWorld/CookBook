@@ -27,7 +27,7 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: inherit; /* Inherit color from parent */
+  color: inherit;
   gap: 5px;
 }
 
@@ -36,13 +36,9 @@
   width: 30px;
   height: 30px;
   border: #000;
-  border-radius: 50%; /* Makes the image round */
+  border-radius: 50%;
   object-fit: cover;
 }
-
-
-
-/* test */
 
 /* Recipe Details Container */
 .recipe-details {
@@ -146,28 +142,26 @@
   color: #000;
 }
 
-
-
 /* recipe image */
-      /* Container for the image */
-      #recipe-image {
-        display: grid;
-        justify-items: center;
-        align-items: center;
-        max-width: 100%; /* Ensures the grid container fits within the screen width */
-        margin: 0 auto;
-    }
 
-    /* Image styling */
-    .recipe-image {
-        width: 100%; /* Ensures the image is responsive */
-        max-width: 500px; /* Maximum size for larger screens */
-        height: auto; /* Maintains the aspect ratio of the image */
-    }
+/* Container for the image */
+#recipe-image {
+display: grid;
+justify-items: center;
+align-items: center;
+max-width: 100%;
+margin: 0 auto;
+}
 
-    /* Optional: Add a background to make the grid stand out */
-    #recipe-image {
-        background-color: #f9f9f9;
-        padding: 10px;
-        border-radius: 8px;
-    }
+/* Image styling */
+.recipe-image {
+width: 100%; /* Ensures the image is responsive */
+max-width: 500px; /* Maximum size for larger screens */
+height: auto; /* Maintains the aspect ratio of the image */
+}
+
+#recipe-image {
+background-color: #f9f9f9;
+padding: 10px;
+border-radius: 8px;
+}

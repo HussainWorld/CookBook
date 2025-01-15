@@ -33,17 +33,15 @@
           <!-- Recipe Card Template -->
 
           <% userRecipes.forEach(oneUser => { %>
-
             <% oneUser.recipes.forEach ( recipe => {%>
           <div class="recipe-card" recipeId="<%= recipe._id %>">
-            <img src="<%= recipe.imageUrl %>" alt="<%= recipe.title %>">
+            <!-- <img src="<%= recipe.imageUrl %>" alt="<%= recipe.title %>"> --> 
             <div class="recipe-info">
                   <h3><%= recipe.title %></h3>
                   <p class="author"><%= oneUser.username %></p>
                   <p class="difficulty"><%= recipe.category %></p>
                   <p class="ingredients">5 ingredients</p>
                   <p class="views">11802 views</p>
-                  <!-- HTML !-->
 
                 <button class="view-details-button">
                   <a href="/allRecipes/<%= oneUser.userId %>/<%= recipe._id %>">View Details</a>
@@ -64,7 +62,6 @@
     document.querySelectorAll('.recipe-card').forEach(card => {
       card.addEventListener('click', () => {
         const recipeId = card.getAttribute('recipeId');
-        // console.log(recipeId)
         if (recipeId) {
           // window.location.href = 'https://www.google.com';
         }

@@ -3,15 +3,6 @@ const router = express.Router();
 const User = require("../models/user.js");
 const bcrypt = require("bcrypt");
 
-
-// router.get('/sign-up', (req, res) => {
-//   res.render('auth/sign-up.ejs');
-// });
-
-// router.get("/sign-in", (req, res) => {
-//   res.render("auth/sign-in.ejs");
-// });
-
 router.get('/signin-signup', (req, res) => {
   res.render('auth/signin-signup.ejs');
 });
@@ -92,7 +83,7 @@ router.post("/sign-up", async (req, res) => {
   // 3) save the user to the database
   const newUser = await User.create(req.body);
 
-    // Automatically log the user in
+    //Automatically log the user in after sign up
     req.session.user = {
       username: newUser.username,
       _id: newUser._id,
