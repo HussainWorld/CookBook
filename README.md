@@ -78,6 +78,7 @@ COOKBOOK/
 - **CSS3**: Styling and layout
 - **JavaScript**: Interactivity and dynamic features
 - **Express.js**: A fast, minimalist web framework for Node.js used to build the server-side of the application, handle routing, and manage HTTP requests and responses efficiently.
+- **EJS (Embedded JavaScript)**: A templating engine used to render dynamic content on the client-side. It allows embedding JavaScript logic into HTML templates to create reusable components and dynamic pages efficiently.
 - **Morgan**: A HTTP request logger middleware for Node.js used to log details of incoming requests, which helps in monitoring and debugging server activity.
 - **Mongoose**: An Object Data Modeling (ODM) library for MongoDB and Node.js. It provides a straightforward way to interact with MongoDB by defining schemas, models, and performing CRUD operations on the database with an easy-to-use API, ensuring data consistency and validation.
 
