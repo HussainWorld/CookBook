@@ -3,27 +3,95 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="/stylesheets/recipes.css" />
+  <link rel="stylesheet" href="/stylesheets/show.css" />
   <title><%= recipe.title %></title>
 </head>
 <body>
   <%- include('../partials/_navbar.ejs') %>
-  <h1><%= recipe.title %></h1>
-  <p><strong>Category:</strong> <%= recipe.category %></p>
-  <p><strong>Ingredients:</strong> <%= recipe.ingredient %></p>
-  <p><strong>Instructions:</strong> <%= recipe.instructions %></p>
-  <img src="<%= recipe.iamgeUrl %>" alt="<%= recipe.title %>">
-  
-  <br>
-    
-    <a href="/users/<%= user._id %>/recipes/<%= recipe._id %>/edit">
-      Edit this Recipe
-    </a>
 
-    <form
-      action="/users/<%= user._id %>/recipes/<%= recipe._id %>?_method=DELETE"
-      method="POST"
-    >
-      <button type="submit">Delete this recipe</button>
-    </form>
+  <main>
+  
+  <div class="container">
+
+    <div class="recipe-header">
+
+      <h1 class="recipe-title"><%= recipe.title %></h1>
+      <div class="recipe-meta">
+        <span class="recipe-date"><%= recipe.createdAt %></span>
+        <a href="#" class="recipe-author">
+          <img src="/images/user.png" alt="Author Image" class="author-image" />
+        </a>
+      </div>
+      
+    </div>
+
+      <div id="recipe-image">
+          <img src="/images/burger.png" alt="<%= recipe.title %>" class="recipe-image">
+      </div>
+
+    <div class="recipe-details">
+      <h2 class="recipe-directions-title">Ingredients</h2>
+      <p class="recipe-description">
+        <% recipe.ingredient.split(',').forEach(function(ingredient) { %>
+          <li><%= ingredient.trim() %></li>
+        <% }); %>
+      </p>
+    
+      <h2 class="recipe-directions-title">Instructions</h2>
+      <ol class="recipe-directions">
+        
+        <% recipe.instructions.split(',').forEach(function(instruction) { %>
+          <li><%= instruction.trim() %></li>
+        <% }); %>
+
+      </ol>
+
+      <div id="edit-delete-buttons">
+        <% if (user) {%>
+
+      <a class="view-recipe-button" href="/users/<%= user._id %>/recipes/<%= recipe._id %>/edit">
+        Edit this Recipe
+      </a>
+  
+      <form
+        action="/users/<%= user._id %>/recipes/<%= recipe._id %>?_method=DELETE"
+        method="POST"
+      >
+        <button class="view-recipe-button" type="submit">Delete this recipe</button>
+      </form>
+
+      </div>
+      <%  } %>
+
+      <div class="recipe-meta">
+
+        <div class="categories">
+          <h3>Categories:</h3>
+          <p> <%= recipe.category %> </p>
+        </div>
+
+        <div class="share-print">
+          <h3>Share & Print</h3>
+          <div class="share-icons">
+            <a href="https://www.facebook.com/"> <img src="/images/facebook-icon.png" alt=""> </a>
+            <a href="https://x.com/"> <img src="/images/twitter-icon.png" alt=""> </a>
+            <a href="https://www.pinterest.com/"> <img src="/images/pinterest-icon.png" alt=""> </a>
+            <a href="#" onclick="window.print(); return false;"> <img src="/images/printer-icon.png" alt=""> </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    </div>
+  </div>
+    
+</main>
+
+
+    <%- include('../partials/_footer.ejs') %>
+
 </body>
 </html>

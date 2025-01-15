@@ -1,6 +1,7 @@
 require("dotenv").config();
 require('./config/database');
 const express = require("express");
+const User = require("./models/user.js")
 
 
 const app = express();
@@ -16,6 +17,9 @@ const passUserToView = require('./middleware/pass-user-to-view.js');
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : "3000";
 
+// new code below this line ---
+const path = require('path');
+
 
 //Middleware
 
@@ -25,6 +29,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 // Morgan for logging HTTP requests
 app.use(morgan('dev'));
+
+// new code below this line ---
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -53,9 +61,54 @@ app.get('/', (req, res) => {
   }
 });
 
+app.get("/allRecipes", async (req, res) => {
+  try {
+    const users = await User.find({});
+    let userRecipes = [];
 
+    users.forEach(user => {
+      // console.log(user._id)
+
+      const oneUserIdAndRecipes = {
+        userId: user._id,
+        recipes: user.recipes
+      }
+      userRecipes.push(oneUserIdAndRecipes)
+
+    });
+    console.log('recipes')
+    console.log( "recipes array",userRecipes[0].recipes[0])
+    
+    res.render("recipes/allRecipes.ejs", {
+      user: req.session.user,
+      userRecipes
+    });
+  } catch (error) {
+    console.error("Error retrieving recipes:", error);
+    res.status(500).send("Error retrieving recipes.");
+  }
+});
+
+app.get('/allRecipes/:userId/:recipesId', async (req, res) => {
+  try {
+    console.log(req.params)
+    // Look up the user from req.session
+    const user = await User.findById(req.params.userId);
+    // Find the recipe by the recipeId supplied from req.params
+    const recipe = user.recipes.id(req.params.recipesId);
+    // Render the show view, passing the recipe data in the context object
+    res.render('recipes/show.ejs', {
+      recipe: recipe,
+    });
+  } catch (error) {
+    // If any errors, log them and redirect back home
+    console.log(error);
+    res.redirect('/');
+  }
+});
 
 app.use("/auth", authController);
+
 
 //Protected Routes
 app.use(isSignedIn); // use new isSignedIn middleware here

@@ -1,19 +1,39 @@
 <!-- views/partials/_navbar.ejs -->
 
-<nav>
+<nav class="navbar">
   <% if(user) { %>
-    <a href="/users/<%= user._id %>/recipes">Your Apps</a>
-    <a href="">Home</a>
-    <a href="/users/<%= user._id %>/recipes/allRecipes">All Recipes</a>
+    <div class="logo">
+      <img src="/images/logo.png" alt="cookBook Logo">
+    </div>
+
+    <div class="nav-links">
+    <a href="/users/<%= user._id %>/recipes">Home</a>
+    <a href="/allRecipes">All Recipes</a>
     <a href="/users/<%= user._id %>/recipes/myRecipes">My Recipes</a>
-    <a href="">Members</a>
     <a href="/users/<%=user._id%>/Recipes/new">Submit a Recipe</a>
     <a href="/auth/sign-out">Logout <b><%= user.username %></b></a>
+    </div>
+
+    <div class="social-icons">
+      <a href="https://www.facebook.com/"> <img src="/images/facebook.png" alt="icon-facebook"> </a>
+      <a href="https://www.instagram.com/"> <img src="/images/instagram.png" alt="icon-instagram"> </a>
+      <a href="https://x.com/"> <img src="/images/twitter.png" alt="icon-twitter"> </a>
+    </div>
   <% } else { %>
-  <a href="">Home</a>
-  <a href="">All Recipes</a>
-  <a href="">Members</a>
-  <a href="/auth/sign-in">Login</a>
-  <a href="/auth/sign-up">Register</a>
+  <div class="logo">
+    <img src="/images/logo.png" alt="cookBook Logo">
+  </div>
+
+  <div class="nav-links">
+  <a href="/">Home</a>
+  <a href="/allRecipes">All Recipes</a>
+  <a href="/auth/signin-signup">Sign in / Sign up</a>
+  </div>
+
+  <div class="social-icons">
+    <a href="https://www.facebook.com/"> <img src="/images/facebook.png" alt="icon-facebook"> </a>
+    <a href="https://www.instagram.com/"> <img src="/images/instagram.png" alt="icon-instagram"> </a>
+    <a href="https://x.com/"> <img src="/images/twitter.png" alt="icon-twitter"> </a>
+  </div>
   <% } %>
 </nav>

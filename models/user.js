@@ -3,33 +3,33 @@ const mongoose = require("mongoose");
 const recipeSchema = new mongoose.Schema({
   title: {
     type: String,
-    require: true,
+    required: true,
   },
   ingredient: 
     {
       type: String,
-      require: false,
+      required: false,
     },
   instructions: {
     type: String,
-    require: false,
+    required: false,
   },
   category: {
     type: String,
-    require: true,
+    required: true,
     enum: ['BreakFast', 'Lunch', 'Dinner', 'Snack', 'Desserts']
   },
-  iamgeUrl: {
+  imageUrl: {
     type: String,
-    require: false,
+    required: false,
   },
   createdAt: {
-    type: Date,
-    require: true,
+    type: String,
+    required: true,
   },
   updatedAt: {
-    type: Date,
-    require: true,
+    type: String,
+    required: true,
   }
 });
 

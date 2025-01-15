@@ -4,11 +4,65 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Apps</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title>indx.ejs in the recipes file </title>
   </head>
   <body>
-    <%- include('../partials/_navbar.ejs') %>
-    <h1>Your Apps</h1>
 
+    <%- include('../partials/_navbar.ejs') %>
+
+    <main>
+      
+      <div class="image-container">
+        <img src="/images/peter-bond-zmsR0qeKQyo-unsplash.jpg" alt="">
+        <h1>Welcome to CookBook</h1>
+        <h2>Where Every Recipe Tells a Story!</h2>
+      </div>
+    
+
+      <div class="container">
+        <h1 class="title">Popular Recipe Categories</h1>
+        <p class="description">Homepage is fully built with widgets. Using the Customizer you can set up the homepage with live preview.</p>
+        <div class="categories">
+            <div class="category">
+                <div class="category-image" style="background-image: url('/images/American-Dish.jpg');">
+                    <div class="overlay">
+                        <span class="count">15 recipes</span>
+                    </div>
+                </div>
+                <h2 class="category-title">American</h2>
+            </div>
+            <div class="category">
+                <div class="category-image" style="background-image: url('/images/main-dish2.jpg');">
+                    <div class="overlay">
+                        <span class="count">14 recipes</span>
+                    </div>
+                </div>
+                <h2 class="category-title">Main Dish</h2>
+            </div>
+            <div class="category">
+                <div class="category-image" style="background-image: url('/images/desert.jpg');">
+                    <div class="overlay">
+                        <span class="count">8 recipes</span>
+                    </div>
+                </div>
+                <h2 class="category-title">Desserts</h2>
+            </div>
+            <div class="category">
+                <div class="category-image" style="background-image: url('/images/fruit-snack.jpg');">
+                    <div class="overlay">
+                        <span class="count">12 recipes</span>
+                    </div>
+                </div>
+                <h2 class="category-title">Snack</h2>
+            </div>
+        </div>
+    </div>
+    
+    </main>
+
+    <%- include('../partials/_footer.ejs') %>
+
+    
   </body>
 </html>

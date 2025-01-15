@@ -3,23 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="/stylesheets/recipes.css" />
   <title>My Recipes</title>
 </head>
 <body>
   <%- include('../partials/_navbar.ejs') %>
-  <h1>My Recipes</h1>
-  <% if (recipes.length > 0) { %>
-    <ul>
-      <% recipes.forEach((recipe) => { %>
-      <li>
-        <a href="/users/<%= user._id %>/recipes/<%= recipe._id %>">
-          <%= recipe.title %> - <%= recipe.category %>
-        </a>
-      </li>
-      <% }) %>
-    </ul>
-  <% } else { %>
-    <p>You havent log any recipes</p>
-  <% } %>
+  
+
+  <main>
+
+    <div class="container">
+
+      <header>
+          <h1><%= recipes.length %> Recipes</h1>
+          <div class="options">
+              <select id="sort-options" name="category">
+                <option value="">--Select Category--</option>
+                <option value="BreakFast">Breakfast</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Dinner">Dinner</option>
+                <option value="Snack">Snack</option>
+                <option value="Desserts">Desserts</option>
+              </select>
+          </div>
+      </header>
+      
+      <div class="recipe-grid">
+           <% if (recipes.length > 0 ) { %>
+          <% recipes.forEach(recipe => { %>
+          <div class="recipe-card" recipeId="<%= recipe._id %>"  userId="<%= user._id %>" >
+            <img src="<%= recipe.imageUrl %>" alt="<%= recipe.title %>">
+            <div class="recipe-info">
+                  <h3><%= recipe.title %></h3>
+                  <p class="author"><%= user.username %></p>
+                  <p class="difficulty"><%= recipe.category %></p>
+                  <p class="ingredients">5 ingredients</p>
+                  <p class="views">11802 views</p>
+                  <a href="/users/<%= user._id %>/recipes/<%= recipe._id %>">View Details</a>
+              </div>
+          </div>
+          <% }) %>
+          <% } else { %>
+            <p>You havent log any recipes</p>
+            <% } %>
+      </div>
+  </div>
+
+  </main>
+
+  <%- include('../partials/_footer.ejs') %>
+
+  <script>
+    document.querySelectorAll('.recipe-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const recipeId = card.getAttribute('recipeId');
+        // console.log(recipeId)
+        if (recipeId) {
+          window.location.href = `/users/${userId}/recipes/${recipeId}`;
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>

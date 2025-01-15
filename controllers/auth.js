@@ -4,12 +4,16 @@ const User = require("../models/user.js");
 const bcrypt = require("bcrypt");
 
 
-router.get('/sign-up', (req, res) => {
-  res.render('auth/sign-up.ejs');
-});
+// router.get('/sign-up', (req, res) => {
+//   res.render('auth/sign-up.ejs');
+// });
 
-router.get("/sign-in", (req, res) => {
-  res.render("auth/sign-in.ejs");
+// router.get("/sign-in", (req, res) => {
+//   res.render("auth/sign-in.ejs");
+// });
+
+router.get('/signin-signup', (req, res) => {
+  res.render('auth/signin-signup.ejs');
 });
 
 router.post("/sign-in", async (req, res) => {
@@ -48,7 +52,7 @@ router.get("/sign-out", (req, res) => {
         return res.status(500).send("Unable to sign out. Please try again.");
       }
       // Redirect to the login page after signing out
-      res.redirect("/login");
+      res.redirect("/");
     });
   } catch (error) {
     console.error("Error in signout:", error);
@@ -87,6 +91,12 @@ router.post("/sign-up", async (req, res) => {
 
   // 3) save the user to the database
   const newUser = await User.create(req.body);
+
+    // Automatically log the user in
+    req.session.user = {
+      username: newUser.username,
+      _id: newUser._id,
+    };
 
   // validation logic
   // res.send(newUser.username);

@@ -3,18 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="/stylesheets/recipes.css" />
   <title>All Recipes</title>
 </head>
 <body>
   <%- include('../partials/_navbar.ejs') %>
-  <h1>All Recipes</h1>
-  <ul>
-    <% recipesArray.forEach(recipe => { %>
-      <li>
-        <strong><%= recipe.title %></strong> - <%= recipe.category %><br>
-        <a href="/users/<%= user._id %>/recipes/<%= recipe._id %>">View Details</a>
-      </li>
-    <% }) %>
-  </ul>
+
+  <main>
+
+    <div class="container">
+
+      <header>
+          <h1>Recipes</h1>
+          <div class="options">
+              <!-- <button>Show only favorites</button> -->
+              <select id="sort-options" name="category">
+                <option value="">--Select Category--</option>
+                <option value="BreakFast">Breakfast</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Dinner">Dinner</option>
+                <option value="Snack">Snack</option>
+                <option value="Desserts">Desserts</option>
+              </select>
+          </div>
+      </header>
+      
+      <div class="recipe-grid">
+          <!-- Recipe Card Template -->
+
+          <% userRecipes.forEach(oneUser => { %>
+
+            <% oneUser.recipes.forEach ( recipe => {%>
+          <div class="recipe-card" recipeId="<%= recipe._id %>">
+            <img src="<%= recipe.imageUrl %>" alt="<%= recipe.title %>">
+            <div class="recipe-info">
+                  <h3><%= recipe.title %></h3>
+                  <p class="author"><%= oneUser.username %></p>
+                  <p class="difficulty"><%= recipe.category %></p>
+                  <p class="ingredients">5 ingredients</p>
+                  <p class="views">11802 views</p>
+                  <!-- HTML !-->
+
+                <button class="view-details-button">
+                  <a href="/allRecipes/<%= oneUser.userId %>/<%= recipe._id %>">View Details</a>
+                </button>
+              </div>
+          </div>
+          <% }) %>
+
+          <% }) %>
+      </div>
+  </div>
+
+  </main>
+
+  <%- include('../partials/_footer.ejs') %>
+
+  <script>
+    document.querySelectorAll('.recipe-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const recipeId = card.getAttribute('recipeId');
+        // console.log(recipeId)
+        if (recipeId) {
+          // window.location.href = 'https://www.google.com';
+        }
+      });
+    });
+  </script>
 </body>
 </html>
