@@ -1,4 +1,4 @@
-// controllers/applications.js
+// controllers/recipes.js
 
 const express = require('express');
 // const router = express.Router();

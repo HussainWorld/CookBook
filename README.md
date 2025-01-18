@@ -84,7 +84,7 @@ COOKBOOK/
 
 ---
 
-## How to Run the Project
+<!-- ## How to Run the Project
 
 1. Download or clone this repository:
    ```bash
@@ -108,7 +108,7 @@ COOKBOOK/
 
 5. Open your browser and go to http://localhost:3000 to view the application..
 
----
+--- -->
 
 ## License
 

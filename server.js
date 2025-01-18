@@ -91,7 +91,6 @@ app.get("/allRecipes", async (req, res) => {
 
 app.get('/allRecipes/:userId/:recipesId', async (req, res) => {
   try {
-    console.log(req.params)
     // Look up the user from req.session
     const user = await User.findById(req.params.userId);
     // Find the recipe by the recipeId supplied from req.params
