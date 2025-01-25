@@ -1,7 +1,7 @@
 require("dotenv").config();
 require('./config/database');
 const express = require("express");
-const User = require("./models/user.js")
+const User = require("./models/user.js");
 
 
 const app = express();
@@ -45,7 +45,6 @@ app.use(passUserToView); // use new passUserToView middleware here
 
 //Contollers
 const authController = require('./controllers/auth');
-
 const recipesController = require('./controllers/recipes.js');
 
 
@@ -111,7 +110,7 @@ app.use("/auth", authController);
 
 //Protected Routes
 app.use(isSignedIn); // use new isSignedIn middleware here
-app.use('/users/:userId/recipes', recipesController); // New!
+app.use('/users/:userId/recipes', recipesController);
 
 
 app.listen(port, () => {let port;

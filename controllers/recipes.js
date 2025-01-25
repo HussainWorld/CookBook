@@ -7,8 +7,6 @@ const router = express.Router({ mergeParams: true });
 const User = require('../models/user.js');
 
 
-// we will build out our router logic here
-
 router.get('/', async (req, res) => {
   try {
     // find the user
